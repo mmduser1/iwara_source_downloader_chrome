@@ -18,7 +18,6 @@ function getInfo(){
     chrome.runtime.sendMessage({
       source_url: links[0].href,
       title: convertSafeFileName(title[0].innerHTML),
-      //username: convertSafeFileName(username[1].innerHTML)
       username: convertSafeFileName(username)
     });
   }
