@@ -11,18 +11,24 @@ down.jsから動画情報を受け取ってダウンロードを開始する
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
 
-    chrome.storage.local.get("filename",((settings)=>{
+    chrome.storage.local.get(["filename","posted_date"],((settings)=>{
 
-      var filename = request.username + ' - ' + request.title + '.mp4';
+      var filename = request.username + ' - ' + request.title;
       if (typeof settings.filename !== "undefined") {
         if(settings.filename.indexOf("type1") != -1){
-          filename = request.username + ' - ' + request.title + '.mp4';
+          filename = request.username + ' - ' + request.title;
         } else if(settings.filename.indexOf("type2") != -1) {
-          filename = '['+request.username+'] ' + request.title + '.mp4';
+          filename = '['+request.username+'] ' + request.title;
         } else {
-          filename = request.title + '.mp4';
+          filename = request.title;
         }
       }
+      if(typeof settings.posted_date !== "undefined"){
+        if(settings.posted_date){
+          filename += "_" + request.posted_date;
+        }
+      }
+      filename += '.mp4';
 
       function onStartedDownload(id) {
         //console.log("Started to download: "+id);
