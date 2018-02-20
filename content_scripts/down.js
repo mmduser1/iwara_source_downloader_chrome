@@ -44,7 +44,7 @@ chrome.runtime.onMessage.addListener(getInfo);
 
 /*
 使用できない文字を全角に置き換え
-¥　/　:　*　?　"　<　>　|
+¥　/　:　*　?　"　<　>　| tab
 chromeのみ
 半角チルダを全角チルダへ変換
 半角ピリオドを全角ピリオドへ変換
@@ -59,7 +59,10 @@ function convertSafeFileName(titleOrUsername){
     .replace(/"/g,'”')
     .replace(/</g,'＜')
     .replace(/>/g,'＞')
-    .replace(/\|/g,'｜').replace(/~/g,'～').replace(/\./g,'．');
+    .replace(/\|/g,'｜')
+    .replace(/\t/g, '　')
+    .replace(/~/g,'～')
+    .replace(/\./g,'．');
 }
 
 /**
